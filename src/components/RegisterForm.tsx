@@ -1,7 +1,8 @@
 import { Box, TextField, Button, Typography, Card, CardContent } from '@mui/material';
 import { FormEvent, useState } from 'react';
-
+import { useRouter } from 'next/navigation'
 export default function Register() {
+  const router = useRouter();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +21,10 @@ export default function Register() {
       });
 
       const data = await res.json();
-      console.log('Response:', data);
+
+      if(res.ok){
+        router.push('/event')
+      }
     } catch (err) {
       console.error('Error:', err);
     }
