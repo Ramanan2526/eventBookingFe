@@ -14,16 +14,15 @@ export default function Register() {
     console.log('Form submitted:', form);
 
     try {
-      const res = await fetch('http://localhost:3000/users', {
+      const res = await fetch('http://localhost:3001/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-
+      setForm({ name: '', email: '', password: '' });
       const data = await res.json();
-
       if(res.ok){
-        router.push('/event')
+        router.push('/index')
       }
     } catch (err) {
       console.error('Error:', err);

@@ -8,7 +8,7 @@ import {
   Container,
   Grid
 } from '@mui/material';
-
+import { useRouter } from 'next/router';
 const EventForm = () => {
   const [forms, setForms] = useState({
     eventName: '',
@@ -21,6 +21,8 @@ const EventForm = () => {
     price: '',
     userId: ''
   });
+  const router = useRouter()
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -31,13 +33,14 @@ const EventForm = () => {
     e.preventDefault();
 
     try{
-        const apiCall = await fetch('http://localhost:3000/events/createEvent',{
+        const apiCall = await fetch('http://localhost:3001/events/createEvent',{
         method:'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(forms),    
     })
 
     const data = await apiCall.json()
+    router.push('/')
     }catch(err){
         console.error('Error:', err);
     }
